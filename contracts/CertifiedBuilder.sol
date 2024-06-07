@@ -16,9 +16,7 @@ contract CertifiedBuilder is ERC1155 {
     }
 
     constructor()
-        ERC1155(
-            "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmaCRA7vTMQUuip9HD4Wckij3tySuhpbMXGvNLMuk2qqWH"
-        )
+        ERC1155("ipfs://QmR6uDnHca3kWPczm4LeH3putoc5BgryLERFjws1djKY4p.json")
     {
         owner = msg.sender;
     }
@@ -44,14 +42,12 @@ contract CertifiedBuilder is ERC1155 {
     // }
 
     function contractURI() public pure returns (string memory) {
-        return
-            "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmaCRA7vTMQUuip9HD4Wckij3tySuhpbMXGvNLMuk2qqWH";
+        return "ipfs://QmR6uDnHca3kWPczm4LeH3putoc5BgryLERFjws1djKY4p.json";
     }
 
     function uri(
         uint256 _tokenid
     ) public pure override returns (string memory) {
-        return
-            "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmVVzVwFBLQL75fVe2vHtJsjMx4o6fQ5Z1uSki6WfnKvtT";
+        return "ipfs://QmR5ei3jFk68mivLDEj28YJNSt4E6M2p3Fswk996pX8eMc.png";
     }
 }
