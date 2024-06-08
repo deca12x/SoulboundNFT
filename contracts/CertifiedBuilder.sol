@@ -4,21 +4,23 @@ pragma solidity ^0.8.20;
 
 import {ERC1155} from "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
-// import {ERC1155Supply} from "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
-// import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
-
 contract CertifiedBuilder is ERC1155 {
-    address public owner;
+    address public contractOwner;
 
     modifier onlyOwner() {
-        require(owner == msg.sender, "Ownable: caller is not the owner");
+        require(
+            contractOwner == msg.sender,
+            "Only the contractOwner can call this function."
+        );
         _;
     }
 
     constructor()
-        ERC1155("ipfs://QmR6uDnHca3kWPczm4LeH3putoc5BgryLERFjws1djKY4p.json")
+        ERC1155(
+            "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmQ4vTLRwyQU9ujyVD1PfoCPpzzET4TaS76aPdQ2Pkwfnh"
+        )
     {
-        owner = msg.sender;
+        contractOwner = msg.sender;
     }
 
     function mint(uint256 recipientsNumber) public onlyOwner {
@@ -31,23 +33,29 @@ contract CertifiedBuilder is ERC1155 {
         }
     }
 
-    // _update override required by Solidity
-    // function _update(
-    //     address from,
-    //     address to,
-    //     uint256[] memory ids,
-    //     uint256[] memory values
-    // ) internal override(ERC1155, ERC1155Supply) {
-    //     super._update(from, to, ids, values);
-    // }
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal view override {
+        require(
+            from == address(0) || from == contractOwner,
+            "This is a soulbound token / non-transferable badge"
+        );
+    }
 
     function contractURI() public pure returns (string memory) {
-        return "ipfs://QmR6uDnHca3kWPczm4LeH3putoc5BgryLERFjws1djKY4p.json";
+        return
+            "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmQ4vTLRwyQU9ujyVD1PfoCPpzzET4TaS76aPdQ2Pkwfnh";
     }
 
     function uri(
         uint256 _tokenid
     ) public pure override returns (string memory) {
-        return "ipfs://QmR5ei3jFk68mivLDEj28YJNSt4E6M2p3Fswk996pX8eMc.png";
+        return
+            "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmQ4vTLRwyQU9ujyVD1PfoCPpzzET4TaS76aPdQ2Pkwfnh";
     }
 }

@@ -1,0 +1,22 @@
+function setApprovalForAll
+  _setApprovalForAll
+
+function safeTransferFrom
+  _safeTransferFrom
+    _beforeTokenTransfer
+
+function safeBatchTransferFrom
+  _safeBatchTransferFrom
+    _beforeTokenTransfer
+
+  _mint
+    _beforeTokenTransfer
+
+  _mintBatch
+    _beforeTokenTransfer
+
+  _burn
+    _beforeTokenTransfer
+
+  _burnBatch
+    _beforeTokenTransfer
