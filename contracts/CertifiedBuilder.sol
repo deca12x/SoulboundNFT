@@ -7,14 +7,6 @@ import {ERC1155} from "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 contract CertifiedBuilder is ERC1155 {
     address public contractOwner;
 
-    modifier onlyOwner() {
-        require(
-            contractOwner == msg.sender,
-            "Only the contractOwner can call this function."
-        );
-        _;
-    }
-
     constructor()
         ERC1155(
             "https://scarlet-reasonable-mule-649.mypinata.cloud/ipfs/QmQ4vTLRwyQU9ujyVD1PfoCPpzzET4TaS76aPdQ2Pkwfnh"
@@ -23,11 +15,11 @@ contract CertifiedBuilder is ERC1155 {
         contractOwner = msg.sender;
     }
 
-    function mint(uint256 recipientsNumber) public onlyOwner {
+    function mint(uint256 recipientsNumber) public {
         _mint(msg.sender, 0, recipientsNumber, "");
     }
 
-    function airdrop(address[] calldata recipients) external onlyOwner {
+    function airdrop(address[] calldata recipients) external {
         for (uint i = 0; i < recipients.length; i++) {
             _safeTransferFrom(msg.sender, recipients[i], 0, 1, "");
         }
